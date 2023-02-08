@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('apicall', [MainController::class, 'ApiCallData']);
+Route::post('category', [MainController::class, 'CategoryData']);
+Route::post('images', [MainController::class, 'ImagesData']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-Route::controller(ApiController::class)->group(function () {
-    Route::get('/get_category', 'get_category'); // insert/edit doctor
 });

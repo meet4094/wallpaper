@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "8d0ffbdd-3931-4e2b-95c5-9923d2c4df25",
+		"name": "Wallpaper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23568815"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "MNhKK0nuG4ZlXxf",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "qKEktCNnOOgZ6yg",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/category",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Images",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "MNhKK0nuG4ZlXxf",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "qKEktCNnOOgZ6yg",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/images",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Api Call",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "MNhKK0nuG4ZlXxf",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "package_name",
+							"value": "XYZ",
+							"type": "text"
+						},
+						{
+							"key": "app_version",
+							"value": "1.1",
+							"type": "text"
+						},
+						{
+							"key": "app_version_code",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/apicall",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"apicall"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

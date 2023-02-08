@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2023 at 02:10 PM
+-- Generation Time: Feb 08, 2023 at 07:41 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -24,6 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `api_calls`
+--
+
+CREATE TABLE `api_calls` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `app_id` int(11) NOT NULL,
+  `device_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `app_token` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `package_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `app_version` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `api_calls`
+--
+
+INSERT INTO `api_calls` (`id`, `app_id`, `device_id`, `app_token`, `package_name`, `app_version`, `version_code`, `ip_address`, `created_at`, `updated_at`) VALUES
+(1, 1, 'TEST4', 'qKEktCNnOOgZ6yg', 'XYZ', '1.1', '123', '127.0.0.1', '2023-02-08 06:46:52', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -38,6 +64,13 @@ CREATE TABLE `category` (
   `updated_by` tinyint(1) DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`catId`, `image`, `catName`, `slug_name`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
+(1, '9e1a9d848fdd797de0f8fb1d0a5bc44e.png', 'Shivratri', 'shivratri', '2023-02-08 12:19:55.003723', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -72,6 +105,13 @@ CREATE TABLE `images` (
   `updated_by` tinyint(1) DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`id`, `catId`, `images`, `is_new`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
+(1, 1, 'f6b8160faaf77bd66ce9062ac1dbbff1.png', 1, '2023-02-08 07:07:08.545648', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -129,6 +169,31 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `app_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `package_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `request_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `app_version` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_del` tinytext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `app_name`, `package_name`, `account_name`, `request_token`, `app_version`, `created_at`, `updated_at`, `is_del`) VALUES
+(1, 'vvf', 'vfvf', 'vfv', 'MNhKK0nuG4ZlXxf', 'vfv', '2023-02-07 19:37:04', NULL, '0');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -153,6 +218,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `api_calls`
+--
+ALTER TABLE `api_calls`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `category`
@@ -194,6 +265,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -205,10 +282,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `api_calls`
+--
+ALTER TABLE `api_calls`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -220,7 +303,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -233,6 +316,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
