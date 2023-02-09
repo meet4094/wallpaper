@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2023 at 07:41 AM
+-- Generation Time: Feb 09, 2023 at 12:51 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -50,6 +50,23 @@ INSERT INTO `api_calls` (`id`, `app_id`, `device_id`, `app_token`, `package_name
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `app_by_category`
+--
+
+CREATE TABLE `app_by_category` (
+  `id` int(11) NOT NULL,
+  `app_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1 = Deleted, 0 = Active'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -70,7 +87,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`catId`, `image`, `catName`, `slug_name`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
-(1, '9e1a9d848fdd797de0f8fb1d0a5bc44e.png', 'Shivratri', 'shivratri', '2023-02-08 12:19:55.003723', NULL, NULL, NULL, 0);
+(1, '9e1a9d848fdd797de0f8fb1d0a5bc44e.png', 'Shivratri', 'shivratri', '2023-02-08 12:19:55.003723', NULL, NULL, NULL, 0),
+(2, '14e049217c822638313797436406b821.png', 'ABCD', 'abcd', '2023-02-09 17:34:29.767187', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -189,7 +207,8 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `app_name`, `package_name`, `account_name`, `request_token`, `app_version`, `created_at`, `updated_at`, `is_del`) VALUES
-(1, 'vvf', 'vfvf', 'vfv', 'MNhKK0nuG4ZlXxf', 'vfv', '2023-02-07 19:37:04', NULL, '0');
+(1, 'vvf', 'vfvf', 'vfv', 'MNhKK0nuG4ZlXxf', 'vfv', '2023-02-07 19:37:04', NULL, '0'),
+(2, 'abcd', 'abcd', 'abcd', 'BUzvxsvZXZPNG8c', 'v1', '2023-02-09 17:34:49', NULL, '0');
 
 -- --------------------------------------------------------
 
@@ -223,6 +242,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- Indexes for table `api_calls`
 --
 ALTER TABLE `api_calls`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `app_by_category`
+--
+ALTER TABLE `app_by_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -288,10 +313,16 @@ ALTER TABLE `api_calls`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `app_by_category`
+--
+ALTER TABLE `app_by_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -321,7 +352,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

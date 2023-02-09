@@ -202,6 +202,25 @@ class MasterController extends Controller
         }
     }
 
+    public function getApp(Request $request)
+    {
+        $search = $request->searchTerm;
+        if ($search == '') {
+            $apps = DB::table('settings')->where(array('is_del' => 0))->select('id', 'app_name')->get();
+        } else {
+            $apps = DB::table('settings')->select('id', 'app_name')->where('app_name', 'like', '%' . $search . '%')->where('is_del', 0)->limit(10)->get();
+        }
+
+        $response = array();
+        foreach ($apps as $app) {
+            $response[] = array(
+                "id" => $app->id,
+                "text" => $app->app_name
+            );
+        }
+        return response()->json($response);
+    }
+
     public function add_app(Request $req)
     {
         $validator = Validator::make($req->all(), [
@@ -245,5 +264,89 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
+    }
+
+    // App By Category
+
+    public function add_app_by_category(Request $req)
+    {
+        if (empty($req->itemId)) {
+            $rules = array(
+                'appId' => 'required',
+                'categoryId' => 'required',
+                'category' => 'required',
+                'image' => 'required',
+            );
+        } else {
+            $rules = array(
+                'category' => 'required',
+            );
+        }
+        $validator = Validator::make($req->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $data = $this->MasterModel->add_app_by_category($req->all());
+            return $data;
+        }
+    }
+
+    public function app_by_category_list(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('app_by_category as ci')->where(array('ci.is_del' => 0))
+                ->join('category as c', 'c.catId', '=', 'ci.category_id')
+                ->join('settings as s', 's.id', '=', 'ci.app_id')
+                ->select('ci.id', 's.app_name', 'c.catName', 'ci.name', 'ci.image')
+                ->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('images', function ($row) {
+                    $url = asset('images/appbycategory');
+                    return '<img src=" ' . $url . '/' . $row->image . ' " height="50">';
+                })
+                ->addColumn('action', function ($row) {
+                    $update_btn = '<button class="btn btn-link" title="' . $row->name . '" onclick="edit_app_by_category(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
+                    $delete_btn = '<button data-toggle="modal" title="' . $row->name . '" target="_blank" class="btn btn-link" onclick="editable_remove(this)" data-val="' . $row->id . '" tabindex="-1"><i class="fa fa-trash-alt tx-danger"></i></button>';
+                    return $update_btn . $delete_btn;
+                })
+                ->rawColumns(['images', 'action'])
+                ->make(true);
+        }
+    }
+
+    public function delete_app_by_category(Request $req)
+    {
+        $data = $this->MasterModel->delete_app_by_category($req->all());
+        return $data;
+    }
+
+    public function getappbycategorydata(Request $request)
+    {
+        if ($request->ajax()) {
+            $itemdata = DB::table('app_by_category as cs')
+                ->join('category as c', 'c.catId', '=', 'cs.category_id')
+                ->join('settings as s', 's.id', '=', 'cs.app_id')
+                ->where(array('cs.id' => $request->id))
+                ->select('cs.*', 'c.catName', 's.app_name')
+                ->get();
+        }
+        foreach ($itemdata as $item) {
+            $data = array();
+            $data = ([
+                'id' => $item->id,
+                'appId' => $item->app_id,
+                'appName' => $item->app_name,
+                'catId' => $item->category_id,
+                'catName' => $item->catName,
+                'name' => $item->name,
+                'image' => asset('images/appbycategory') . '/' . $item->image,
+            ]);
+        }
+        $response = array('st' => "success", "msg" => $data);
+        return response()->json($response);
     }
 }
