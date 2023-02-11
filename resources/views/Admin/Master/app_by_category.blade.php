@@ -8,129 +8,155 @@
                 <li class="breadcrumb-item active" aria-current="page">App By Category List</li>
             </ol>
         </div>
-        <div class="btn btn-list">
+        <div>
             <button type="button" class="btn btn-outline-primary rounded" id="toggler" data-toggle="modal"
                 data-target="#add_app_by_category_modal">
                 Add App By Category
             </button>
-            <div id="add_app_by_category_modal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ url('add_app_by_category') }}" class="ajax-form-submit" id="cform"
-                            method="post" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="appbycatId" id="appbycatId" value="">
-                            <div class="modal-body">
-                                <div class="row" style="display: flex;justify-content: center;">
-                                    <div class="col-12">
-                                        <div class="">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="d-flex" for="appId">Select App<span
-                                                                    class="tx-danger">*</span></label>
-                                                            <select class="form-control select_app" name="appId"
-                                                                id="appId">
-                                                                <option value=""></option>
-                                                            </select>
-                                                            <input type="hidden" name="appName" id="appName"
-                                                                value="">
-                                                        </div>
-                                                        <span class="float-left tx-danger error_text appId_error"></span>
+            <a href="#" class="btn ripple btn-primary navresponsive-toggler mb-0" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fe fe-filter mr-1"></i> Filter <i class="fas fa-caret-down ml-1"></i>
+            </a>
+        </div>
+    </div>
+    <div class="responsive-background">
+        <div id="add_app_by_category_modal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ url('add_app_by_category') }}" class="ajax-form-submit" id="cform" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="appbycatId" id="appbycatId" value="">
+                        <div class="modal-body">
+                            <div class="row" style="display: flex;justify-content: center;">
+                                <div class="col-12">
+                                    <div class="">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="d-flex" for="appId">Select App<span
+                                                                class="tx-danger">*</span></label>
+                                                        <select class="form-control select_app" name="appId"
+                                                            id="appId">
+                                                            <option value=""></option>
+                                                        </select>
+                                                        <input type="hidden" name="appName" id="appName" value="">
                                                     </div>
+                                                    <span class="float-left tx-danger error_text appId_error"></span>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="d-flex" for="catId">Select Category<span
-                                                                    class="tx-danger">*</span></label>
-                                                            <select class="form-control select2" name="categoryId"
-                                                                id="categoryId">
-                                                                <option value=""></option>
-                                                            </select>
-                                                            <input type="hidden" name="catName" id="catName"
-                                                                value="">
-                                                        </div>
-                                                        <span
-                                                            class="float-left tx-danger error_text categoryId_error"></span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="d-flex" for="catId">Select Category<span
+                                                                class="tx-danger">*</span></label>
+                                                        <select class="form-control select2" name="categoryId"
+                                                            id="categoryId">
+                                                            <option value=""></option>
+                                                        </select>
+                                                        <input type="hidden" name="catName" id="catName" value="">
                                                     </div>
+                                                    <span class="float-left tx-danger error_text categoryId_error"></span>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="float-left" for="category">Name<span
-                                                                    class="tx-danger">*</span></label>
-                                                            <input type="text" class="form-control" id="category"
-                                                                placeholder='Enter category' name="category" value="">
-                                                            <span
-                                                                class="float-left tx-danger error_text category_error"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="float-left" for="image">Image<span
-                                                                    class="tx-danger">*</span></label>
-                                                            <div class="input-group">
-                                                                <input type="file" class="form-control"
-                                                                    id="dropify_image" name="image" data-default-file=""
-                                                                    data-height="200">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group" id="profile_img_container">
-                                                        </div>
-                                                        <span class="float-left tx-danger error_text image_error"></span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="float-left" for="category">Name<span
+                                                                class="tx-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="category"
+                                                            placeholder='Enter category' name="category" value="">
+                                                        <span class="float-left tx-danger error_text category_error"></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="float-left" for="image">Image<span
+                                                                class="tx-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <input type="file" class="form-control" id="dropify_image"
+                                                                name="image" data-default-file="" data-height="200">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="profile_img_container">
+                                                    </div>
+                                                    <span class="float-left tx-danger error_text image_error"></span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="error-msg tx-danger"></div>
-                                        <div class="form_proccessing tx-success float-left"></div>
                                     </div>
+                                    <div class="error-msg tx-danger"></div>
+                                    <div class="form_proccessing tx-success float-left"></div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" id="save_data" type="submit"
-                                    value="Submit">Submit</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" id="save_data" type="submit" value="Submit">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card custom-card">
-                <div class="card-header-divider">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table data-table table-striped table-hover table-fw-widget" id="table_list_data"
-                                width="100%">
-                                <!-- data-filter_data is static as there are different tabs for filtering that are already defined -->
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>App Name</th>
-                                        <th>Main Category Name</th>
-                                        <th>Sub Category Name</th>
-                                        <th>Background Image</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="advanced-search">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">app</span></label>
+                            <select class="form-control select2-flag-search select_app" id="app_id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">categories</span></label>
+                            <select class="form-control select2-flag-search select2" id="cat_id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <a href="#" id="statusApply" class="btn btn-primary">Apply</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card custom-card">
+                    <div class="card-header-divider">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table data-table table-striped table-hover table-fw-widget"
+                                    id="table_list_data" width="100%">
+                                    <!-- data-filter_data is static as there are different tabs for filtering that are already defined -->
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>App Name</th>
+                                            <th>Main Category Name</th>
+                                            <th>Sub Category Name</th>
+                                            <th>Background Image</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,6 +164,7 @@
         </div>
     </div>
 @endsection
+
 @section('scripts')
     <script type="text/javascript">
         $.ajaxSetup({
@@ -183,6 +210,7 @@
                 cache: true
             }
         });
+
         $('.select2').on('change', function() {
             var data = $(".select2 option:selected").text();
             $("#catName").val(data);
@@ -213,11 +241,11 @@
                 cache: true
             }
         });
+
         $('.select_app').on('change', function() {
             var data = $(".select_app option:selected").text();
             $("#appName").val(data);
         })
-
 
         var loadFile = function(event) {
             var image = document.getElementById('profile_img_container');
@@ -274,14 +302,24 @@
             return false;
         });
 
-        $(function() {
+        $(document).ready(function() {
+            load_datatable('');
+        });
+
+        function load_datatable(category_id = '', app_id = '') {
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 "order": [
                     [0, "desc"]
                 ],
-                ajax: "{{ route('app_by_category_list') }}",
+                ajax: {
+                    url: '{{ route('app_by_category_list') }}',
+                    data: {
+                        'category_id': category_id,
+                        'app_id': app_id,
+                    }
+                },
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -310,7 +348,11 @@
                     },
                 ]
             });
-        });
+            $('#statusApply').on('submit', function(e) {
+                oTable.draw();
+                e.preventDefault();
+            });
+        };
 
         function editable_remove(data_delete) {
             var type = 'Remove';
@@ -391,5 +433,14 @@
                 }
             });
         }
+
+        $('#statusApply').click(function() {
+            var category_id = $('#cat_id').val();
+            var app_id = $('#app_id').val();
+            if (category_id != '' || app_id != '') {
+                $('#table_list_data').DataTable().destroy();
+                load_datatable(category_id, app_id);
+            }
+        });
     </script>
 @endsection

@@ -13,113 +13,135 @@
                 <li class="breadcrumb-item active" aria-current="page">Images List</li>
             </ol>
         </div>
-        <div class="btn btn-list">
+        <div>
             <button type="button" class="btn btn-outline-primary rounded" id="toggler" data-toggle="modal"
                 data-target="#add_Images_modal">
                 Add Images
             </button>
-            <div id="add_Images_modal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ url('add_items') }}" class="ajax-form-submit" id="cform" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="itemId" id="itemId" value="">
-                            <div class="modal-body">
-                                <div class="row" style="display: flex;justify-content: center;">
-                                    <div class="col-12">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label class="d-flex" for="catId">Select Category<span
-                                                                class="tx-danger">*</span></label>
-                                                        <select class="form-control select2" name="category" id="catId">
-                                                            <option value=""></option>
-                                                        </select>
-                                                        <input type="hidden" name="catName" id="catName" value="">
-                                                    </div>
-                                                    <span class="float-left tx-danger error_text category_error"></span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label class="float-left" for="images">Images<span
-                                                                class="tx-danger">*</span></label>
-                                                        <div class="input-group">
-                                                            <input type="file" class="form-control" value=""
-                                                                name="images[]" accept="image/png, image/gif, image/jpeg"
-                                                                id="images" multiple />
-                                                        </div>
-                                                        <span class="float-left tx-danger error_text images_error"></span>
-                                                    </div>
-                                                    <div class="form-group" id="profile_img_container">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12 text-left">
-                                                    <label class="" for="cname">Is New<span
+            <a href="#" class="btn ripple btn-primary navresponsive-toggler mb-0" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fe fe-filter mr-1"></i> Filter <i class="fas fa-caret-down ml-1"></i>
+            </a>
+        </div>
+    </div>
+    <div class="responsive-background">
+        <div id="add_Images_modal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ url('add_items') }}" class="ajax-form-submit" id="cform" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="itemId" id="itemId" value="">
+                        <div class="modal-body">
+                            <div class="row" style="display: flex;justify-content: center;">
+                                <div class="col-12">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="d-flex" for="catId">Select Category<span
                                                             class="tx-danger">*</span></label>
-                                                    <div class="form-control form-group">
-                                                        <div class="form-check form-check-inline float-left">
-                                                            <input class="form-check-input" type="radio" name="new"
-                                                                id="visible1" value="1" />
-                                                            <label class="form-check-label" for="visible1">True</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline float-left">
-                                                            <input class="form-check-input" type="radio" name="new"
-                                                                id="visible2" value="0" checked />
-                                                            <label class="form-check-label" for="visible2">False</label>
-                                                        </div>
+                                                    <select class="form-control select2" name="category" id="catId">
+                                                        <option value=""></option>
+                                                    </select>
+                                                    <input type="hidden" name="catName" id="catName" value="">
+                                                </div>
+                                                <span class="float-left tx-danger error_text category_error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="float-left" for="images">Images<span
+                                                            class="tx-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" value=""
+                                                            name="images[]" accept="image/png, image/gif, image/jpeg"
+                                                            id="images" multiple />
+                                                    </div>
+                                                    <span class="float-left tx-danger error_text images_error"></span>
+                                                </div>
+                                                <div class="form-group" id="profile_img_container">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 text-left">
+                                                <label class="" for="cname">Is New<span
+                                                        class="tx-danger">*</span></label>
+                                                <div class="form-control form-group">
+                                                    <div class="form-check form-check-inline float-left">
+                                                        <input class="form-check-input" type="radio" name="new"
+                                                            id="visible1" value="1" />
+                                                        <label class="form-check-label" for="visible1">True</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline float-left">
+                                                        <input class="form-check-input" type="radio" name="new"
+                                                            id="visible2" value="0" checked />
+                                                        <label class="form-check-label" for="visible2">False</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="error-msg tx-danger"></div>
-                                        <div class="form_proccessing tx-success float-left"></div>
                                     </div>
+                                    <div class="error-msg tx-danger"></div>
+                                    <div class="form_proccessing tx-success float-left"></div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" id="save_data" type="submit"
-                                    value="Submit">Submit</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" id="save_data" type="submit" value="Submit">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card custom-card">
-                <div class="card-header-divider">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table data-table table-striped table-hover table-fw-widget" id="table_list_data"
-                                width="100%">
-                                <!-- data-filter_data is static as there are different tabs for filtering that are already defined -->
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Category</th>
-                                        <th>Images</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="advanced-search">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">categories</span></label>
+                            <select class="form-control select2-flag-search select2" id="cat_id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <a href="#" id="statusApply" class="btn btn-primary">Apply</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card custom-card">
+                    <div class="card-header-divider">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table data-table table-striped table-hover table-fw-widget"
+                                    id="table_list_data" width="100%">
+                                    <!-- data-filter_data is static as there are different tabs for filtering that are already defined -->
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Category</th>
+                                            <th>Images</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,6 +149,7 @@
         </div>
     </div>
 @endsection
+
 @section('scripts')
     <script type="text/javascript">
         $.ajaxSetup({
@@ -143,7 +166,6 @@
             $('#images').attr('multiple', 'multiple');
             $('#profile_img_container').html('');
         });
-
 
         $(".select2").select2({
             placeholder: "Select a Category",
@@ -170,6 +192,7 @@
                 cache: true
             }
         });
+        
         $('.select2').on('change', function() {
             var data = $(".select2 option:selected").text();
             $("#catName").val(data);
@@ -219,14 +242,23 @@
             return false;
         });
 
-        $(function() {
-            var table = $('.data-table').DataTable({
+        $(document).ready(function() {
+            load_datatable('');
+        });
+        
+        function load_datatable(category_id = '') {
+            $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 "order": [
                     [0, "desc"]
                 ],
-                ajax: "{{ route('items_list') }}",
+                ajax: {
+                    url: '{{ route('items_list') }}',
+                    data: {
+                        'category_id': category_id
+                    }
+                },
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -247,7 +279,11 @@
                     },
                 ]
             });
-        });
+            $('#statusApply').on('submit', function(e) {
+                oTable.draw();
+                e.preventDefault();
+            });
+        };
 
         function editable_remove(data_delete) {
             var type = 'Remove';
@@ -333,5 +369,13 @@
                 }
             });
         }
+
+        $('#statusApply').click(function() {
+            var category_id = $('#cat_id').val();
+            if (category_id != '') {
+                $('#table_list_data').DataTable().destroy();
+                load_datatable(category_id);
+            }
+        });
     </script>
 @endsection

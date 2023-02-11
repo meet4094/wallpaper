@@ -11,6 +11,8 @@ use App\Models\MasterModel;
 use DataTables;
 use File;
 
+use function GuzzleHttp\Promise\all;
+
 class MasterController extends Controller
 {
     protected $MasterModel;
@@ -135,11 +137,15 @@ class MasterController extends Controller
     public function items_list(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('images as ci')->where(array('ci.is_deleted' => 0))
-                ->join('category as c', 'c.catId', '=', 'ci.catId')
-                ->select('ci.id', 'c.catName', 'c.slug_name', 'ci.images')
-                ->get();
-            return Datatables::of($data)
+            $builder = DB::table('images as ci');
+            if ($request->category_id != '') {
+                $builder->where('ci.catId', $request->category_id);
+            }
+            $builder->where('ci.is_deleted', '0');
+            $builder->join('category as c', 'c.catId', '=', 'ci.catId');
+            $builder->select('ci.id', 'c.catName', 'c.slug_name', 'ci.images');
+            $result = $builder->get();
+            return Datatables::of($result)
                 ->addIndexColumn()
                 ->editColumn('images', function ($row) {
                     $url = asset('images/' . $row->slug_name);
@@ -297,12 +303,20 @@ class MasterController extends Controller
     public function app_by_category_list(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('app_by_category as ci')->where(array('ci.is_del' => 0))
-                ->join('category as c', 'c.catId', '=', 'ci.category_id')
-                ->join('settings as s', 's.id', '=', 'ci.app_id')
-                ->select('ci.id', 's.app_name', 'c.catName', 'ci.name', 'ci.image')
-                ->get();
-            return Datatables::of($data)
+            $builder = DB::table('app_by_category as ci');
+            if ($request->app_id != '' && $request->category_id != '') {
+                $builder->where('ci.app_id', $request->app_id);
+                $builder->where('ci.category_id', $request->category_id);
+            } else if ($request->app_id != '' || $request->category_id != '') {
+                $builder->where('ci.app_id', $request->app_id);
+                $builder->orwhere('ci.category_id', $request->category_id);
+            }
+            $builder->where(array('ci.is_del' => 0));
+            $builder->join('category as c', 'c.catId', '=', 'ci.category_id');
+            $builder->join('settings as s', 's.id', '=', 'ci.app_id');
+            $builder->select('ci.id', 's.app_name', 'c.catName', 'ci.name', 'ci.image');
+            $result = $builder->get();
+            return Datatables::of($result)
                 ->addIndexColumn()
                 ->editColumn('images', function ($row) {
                     $url = asset('images/appbycategory');
