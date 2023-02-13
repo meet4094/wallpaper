@@ -8,7 +8,7 @@
     <meta name="author" content="mj">
     <!-- Favicon -->
     <!-- Title -->
-    <title>Login</title>
+    <title>Aallpaper | Login</title>
     <!---Style css-->
     <link href="{{ asset ('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset ('assets/css/custom-style.css') }}" rel="stylesheet">

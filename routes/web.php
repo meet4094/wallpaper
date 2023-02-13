@@ -43,6 +43,14 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::post('/delete_item', [MasterController::class, 'delete_item']);
     Route::post('/getitemdata', [MasterController::class, 'getitemdata']);
 
+    // Video Item
+    Route::view('/category_videos', 'Admin/Master/category_videos', ['title' => 'videos']);
+    Route::post('/getCategory', [MasterController::class, 'getCategory']);
+    Route::post('/add_videos', [MasterController::class, 'add_videos']);
+    Route::get('/videos_list', [MasterController::class, 'videos_list'])->name('videos_list');  // list
+    Route::post('/delete_video', [MasterController::class, 'delete_video']);
+    Route::post('/getvideodata', [MasterController::class, 'getvideodata']);
+
     // Api Call
     Route::view('/api_call', 'Admin/Master/api_call', ['title' => 'api_call']);
     Route::get('/api_call_list', [MasterController::class, 'api_call_list'])->name('api_call_list');  // list

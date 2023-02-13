@@ -189,6 +189,87 @@ class MasterController extends Controller
         return response()->json($response);
     }
 
+    // Video Item Data
+
+    public function add_videos(Request $req)
+    {
+        if (empty($req->videoId)) {
+            $rules = array(
+                'category' => 'required',
+                'videos' => 'required',
+            );
+        } else {
+            $rules = array(
+                'category' => 'required',
+            );
+        }
+        $validator = Validator::make($req->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $data = $this->MasterModel->add_videos($req->all());
+            return $data;
+        }
+    }
+
+    public function videos_list(Request $request)
+    {
+        if ($request->ajax()) {
+            $builder = DB::table('videos as ci');
+            if ($request->category_id != '') {
+                $builder->where('ci.catId', $request->category_id);
+            }
+            $builder->where('ci.is_deleted', '0');
+            $builder->join('category as c', 'c.catId', '=', 'ci.catId');
+            $builder->select('ci.id', 'c.catName', 'c.slug_name', 'ci.videos');
+            $result = $builder->get();
+            return Datatables::of($result)
+                ->addIndexColumn()
+                ->editColumn('videos', function ($row) {
+                    $url = asset('videos/' . $row->slug_name);
+                    return '<video controls src=" ' . $url . '/' . $row->videos . ' " height="150">';
+                })
+                ->addColumn('action', function ($row) {
+                    $update_btn = '<button class="btn btn-link" onclick="edit_video(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
+                    $delete_btn = '<button data-toggle="modal" target="_blank" class="btn btn-link" onclick="editable_remove(this)" data-val="' . $row->id . '" tabindex="-1"><i class="fa fa-trash-alt tx-danger"></i></button>';
+                    return $update_btn . $delete_btn;
+                })
+                ->rawColumns(['videos', 'action'])
+                ->make(true);
+        }
+    }
+
+    public function delete_video(Request $req)
+    {
+        $data = $this->MasterModel->delete_video($req->all());
+        return $data;
+    }
+
+    public function getvideodata(Request $request)
+    {
+        if ($request->ajax()) {
+            $videodata = DB::table('videos as cs')
+                ->join('category as c', 'c.catId', '=', 'cs.catId')
+                ->where(array('id' => $request->id))
+                ->select('cs.*', 'c.catName', 'c.slug_name')
+                ->get();
+        }
+        foreach ($videodata as $video) {
+            $data = array();
+            $data = ([
+                'catId' => $video->catId,
+                'id' => $video->id,
+                'catName' => $video->catName,
+                'video' => asset('videos/' . $video->slug_name) . '/' . $video->videos,
+            ]);
+        }
+        $response = array('st' => "success", "msg" => $data);
+        return response()->json($response);
+    }
+
     // App Setting Data
 
     public function app_data_list(Request $request)

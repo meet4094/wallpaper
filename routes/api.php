@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\MainController;
+use App\Http\Controllers\Api\MasterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,10 @@ use App\Http\Controllers\Api\MainController;
 |
 */
 
-Route::post('apicall', [MainController::class, 'ApiCallData']);
-Route::post('category', [MainController::class, 'CategoryData']);
-Route::post('images', [MainController::class, 'ImagesData']);
+Route::post('apicall', [MasterController::class, 'ApiCallData']);
+Route::post('category', [MasterController::class, 'CategoryData']);
+Route::post('images', [MasterController::class, 'ImagesData']);
+Route::post('appbycategory', [MasterController::class, 'appbycategoryData']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

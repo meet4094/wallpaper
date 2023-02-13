@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta name="description" content="Dr Appointment">
+    <meta name="description" content="Wallpaper">
     <meta name="author" content="mj">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
     <link rel="icon" href="{{ asset ('assets/img/brand/favicon.ico') }}" type="image/x-icon" />
     <!-- Title -->
-    <title>Admin</title>
+    <title>Wallpaper | Admin</title>
     <!---Fontawesome css-->
     <link href="{{ asset ('assets/plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <!---Ionicons css-->

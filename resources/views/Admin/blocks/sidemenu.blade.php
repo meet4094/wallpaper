@@ -19,6 +19,11 @@
                 <a class="nav-link" href="{{ url('/category_items') }}"><i class="fe fe-box"></i><span
                         class="sidemenu-label">Images</span></a>
             </li>
+            <li class="nav-label">Category By Video</li>
+            <li class="nav-item {{ @$title == 'videos' ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('/category_videos') }}"><i class="fe fe-box"></i><span
+                        class="sidemenu-label">Videos</span></a>
+            </li>
             <li class="nav-label">App By Category</li>
             <li class="nav-item {{ @$title == 'appbycategory' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('/app_by_category') }}"><i class="fe fe-box"></i><span
