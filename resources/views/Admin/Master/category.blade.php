@@ -52,7 +52,7 @@
                                                             <div class="input-group">
                                                                 <input type="file" class="form-control"
                                                                     id="dropify_image" name="image" data-default-file=""
-                                                                    data-height="200">
+                                                                    data-height="200"accept="image/png, image/gif, image/jpeg">
                                                             </div>
                                                         </div>
                                                         <div class="form-group" id="profile_img_container">
@@ -255,7 +255,7 @@
             var id = $(edit_category).data('val');
             $.ajax({
                 type: 'POST',
-                url: '/getcategorydata',
+                url: "{{ url('getcategorydata') }}" '/getcategorydata',
                 data: {
                     id: id
                 },

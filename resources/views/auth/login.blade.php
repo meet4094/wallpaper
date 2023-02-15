@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta name="description" content="Dr Appointment">
+    <meta name="description" content="Wallpaper">
     <meta name="author" content="mj">
     <!-- Favicon -->
+    <link rel="icon" href="{{ asset ('logo.jpg') }}" type="image/x-icon" />
     <!-- Title -->
-    <title>Aallpaper | Login</title>
+    <title>Wallpaper | Login</title>
     <!---Style css-->
     <link href="{{ asset ('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset ('assets/css/custom-style.css') }}" rel="stylesheet">

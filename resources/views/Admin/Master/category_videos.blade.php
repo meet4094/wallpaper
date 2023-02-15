@@ -62,9 +62,9 @@
                                                     <label class="float-left" for="videos">videos<span
                                                             class="tx-danger">*</span></label>
                                                     <div class="input-group">
-                                                        <input type="file" class="form-control" value=""
-                                                            name="videos[]" accept="video/mp4,video/x-m4v,video/*"
-                                                            id="videos" multiple />
+                                                        <input type="file" name="videos[]" multiple="multiple"
+                                                            value="" class="form-control" id="videos"
+                                                            accept="video/mp4,video/x-m4v,video/*">
                                                     </div>
                                                     <span class="float-left tx-danger error_text videos_error"></span>
                                                 </div>

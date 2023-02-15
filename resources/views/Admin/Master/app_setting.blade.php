@@ -297,7 +297,7 @@
             console.log(id);
             $.ajax({
                 type: 'POST',
-                url: '/getappdata',
+                url: "{{ url('getappdata') }}",
                 data: {
                     id: id
                 },

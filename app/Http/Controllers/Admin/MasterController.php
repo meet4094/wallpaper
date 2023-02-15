@@ -230,7 +230,7 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->editColumn('videos', function ($row) {
                     $url = asset('videos/' . $row->slug_name);
-                    return '<video controls src=" ' . $url . '/' . $row->videos . ' " height="150">';
+                    return '<video controls src=" ' . $url . '/' . $row->videos . ' "width="180">';
                 })
                 ->addColumn('action', function ($row) {
                     $update_btn = '<button class="btn btn-link" onclick="edit_video(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
@@ -353,9 +353,8 @@ class MasterController extends Controller
         }
     }
 
-    // App By Category
-
-    public function add_app_by_category(Request $req)
+    // App By Image Category
+    public function add_app_by_image_category(Request $req)
     {
         if (empty($req->itemId)) {
             $rules = array(
@@ -376,15 +375,15 @@ class MasterController extends Controller
                 'error' => $validator->errors()->toArray()
             ]);
         } else {
-            $data = $this->MasterModel->add_app_by_category($req->all());
+            $data = $this->MasterModel->add_app_by_image_category($req->all());
             return $data;
         }
     }
 
-    public function app_by_category_list(Request $request)
+    public function app_by_image_category_list(Request $request)
     {
         if ($request->ajax()) {
-            $builder = DB::table('app_by_category as ci');
+            $builder = DB::table('app_by_image_category as ci');
             if ($request->app_id != '' && $request->category_id != '') {
                 $builder->where('ci.app_id', $request->app_id);
                 $builder->where('ci.category_id', $request->category_id);
@@ -400,11 +399,11 @@ class MasterController extends Controller
             return Datatables::of($result)
                 ->addIndexColumn()
                 ->editColumn('images', function ($row) {
-                    $url = asset('images/appbycategory');
+                    $url = asset('images/appbyimagecategory');
                     return '<img src=" ' . $url . '/' . $row->image . ' " height="50">';
                 })
                 ->addColumn('action', function ($row) {
-                    $update_btn = '<button class="btn btn-link" title="' . $row->name . '" onclick="edit_app_by_category(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
+                    $update_btn = '<button class="btn btn-link" title="' . $row->name . '" onclick="edit_app_by_image_category(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
                     $delete_btn = '<button data-toggle="modal" title="' . $row->name . '" target="_blank" class="btn btn-link" onclick="editable_remove(this)" data-val="' . $row->id . '" tabindex="-1"><i class="fa fa-trash-alt tx-danger"></i></button>';
                     return $update_btn . $delete_btn;
                 })
@@ -413,16 +412,16 @@ class MasterController extends Controller
         }
     }
 
-    public function delete_app_by_category(Request $req)
+    public function delete_app_by_image_category(Request $req)
     {
-        $data = $this->MasterModel->delete_app_by_category($req->all());
+        $data = $this->MasterModel->delete_app_by_image_category($req->all());
         return $data;
     }
 
-    public function getappbycategorydata(Request $request)
+    public function getappbyimagecategorydata(Request $request)
     {
         if ($request->ajax()) {
-            $itemdata = DB::table('app_by_category as cs')
+            $itemdata = DB::table('app_by_image_category as cs')
                 ->join('category as c', 'c.catId', '=', 'cs.category_id')
                 ->join('settings as s', 's.id', '=', 'cs.app_id')
                 ->where(array('cs.id' => $request->id))
@@ -438,7 +437,98 @@ class MasterController extends Controller
                 'catId' => $item->category_id,
                 'catName' => $item->catName,
                 'name' => $item->name,
-                'image' => asset('images/appbycategory') . '/' . $item->image,
+                'image' => asset('images/appbyimagecategory') . '/' . $item->image,
+            ]);
+        }
+        $response = array('st' => "success", "msg" => $data);
+        return response()->json($response);
+    }
+
+    // App By Video Category
+    public function add_app_by_video_category(Request $req)
+    {
+        if (empty($req->itemId)) {
+            $rules = array(
+                'appId' => 'required',
+                'categoryId' => 'required',
+                'category' => 'required',
+                'image' => 'required',
+            );
+        } else {
+            $rules = array(
+                'category' => 'required',
+            );
+        }
+        $validator = Validator::make($req->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $data = $this->MasterModel->add_app_by_video_category($req->all());
+            return $data;
+        }
+    }
+
+    public function app_by_video_category_list(Request $request)
+    {
+        if ($request->ajax()) {
+            $builder = DB::table('app_by_video_category as ci');
+            if ($request->app_id != '' && $request->category_id != '') {
+                $builder->where('ci.app_id', $request->app_id);
+                $builder->where('ci.category_id', $request->category_id);
+            } else if ($request->app_id != '' || $request->category_id != '') {
+                $builder->where('ci.app_id', $request->app_id);
+                $builder->orwhere('ci.category_id', $request->category_id);
+            }
+            $builder->where(array('ci.is_del' => 0));
+            $builder->join('category as c', 'c.catId', '=', 'ci.category_id');
+            $builder->join('settings as s', 's.id', '=', 'ci.app_id');
+            $builder->select('ci.id', 's.app_name', 'c.catName', 'ci.name', 'ci.image');
+            $result = $builder->get();
+            return Datatables::of($result)
+                ->addIndexColumn()
+                ->editColumn('images', function ($row) {
+                    $url = asset('images/appbyvideocategory');
+                    return '<img src=" ' . $url . '/' . $row->image . ' " height="50">';
+                })
+                ->addColumn('action', function ($row) {
+                    $update_btn = '<button class="btn btn-link" title="' . $row->name . '" onclick="edit_app_by_video_category(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
+                    $delete_btn = '<button data-toggle="modal" title="' . $row->name . '" target="_blank" class="btn btn-link" onclick="editable_remove(this)" data-val="' . $row->id . '" tabindex="-1"><i class="fa fa-trash-alt tx-danger"></i></button>';
+                    return $update_btn . $delete_btn;
+                })
+                ->rawColumns(['images', 'action'])
+                ->make(true);
+        }
+    }
+
+    public function delete_app_by_video_category(Request $req)
+    {
+        $data = $this->MasterModel->delete_app_by_video_category($req->all());
+        return $data;
+    }
+
+    public function getappbyvideocategorydata(Request $request)
+    {
+        if ($request->ajax()) {
+            $itemdata = DB::table('app_by_video_category as cs')
+                ->join('category as c', 'c.catId', '=', 'cs.category_id')
+                ->join('settings as s', 's.id', '=', 'cs.app_id')
+                ->where(array('cs.id' => $request->id))
+                ->select('cs.*', 'c.catName', 's.app_name')
+                ->get();
+        }
+        foreach ($itemdata as $item) {
+            $data = array();
+            $data = ([
+                'id' => $item->id,
+                'appId' => $item->app_id,
+                'appName' => $item->app_name,
+                'catId' => $item->category_id,
+                'catName' => $item->catName,
+                'name' => $item->name,
+                'image' => asset('images/appbyvideocategory') . '/' . $item->image,
             ]);
         }
         $response = array('st' => "success", "msg" => $data);

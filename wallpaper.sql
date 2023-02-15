@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 12:51 PM
+-- Generation Time: Feb 15, 2023 at 11:46 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -45,15 +45,16 @@ CREATE TABLE `api_calls` (
 --
 
 INSERT INTO `api_calls` (`id`, `app_id`, `device_id`, `app_token`, `package_name`, `app_version`, `version_code`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1, 1, 'TEST4', 'qKEktCNnOOgZ6yg', 'XYZ', '1.1', '123', '127.0.0.1', '2023-02-08 06:46:52', NULL);
+(1, 1, 'TEST4', 'qKEktCNnOOgZ6yg', 'XYZ', '1.1', '123', '127.0.0.1', '2023-02-08 06:46:52', NULL),
+(2, 1, 'TEST4', '1LeVUly0hXitCY0', 'XYZ', '1.1', '123', '127.0.0.1', '2023-02-13 09:11:25', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `app_by_category`
+-- Table structure for table `app_by_image_category`
 --
 
-CREATE TABLE `app_by_category` (
+CREATE TABLE `app_by_image_category` (
   `id` int(11) NOT NULL,
   `app_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -63,6 +64,37 @@ CREATE TABLE `app_by_category` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1 = Deleted, 0 = Active'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `app_by_image_category`
+--
+
+INSERT INTO `app_by_image_category` (`id`, `app_id`, `category_id`, `name`, `image`, `created_at`, `updated_at`, `is_del`) VALUES
+(1, 2, 1, 'Shivratri', '30e4679bc7025832cd4a201e65b4ceff.png', '2023-02-14 16:03:06', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_by_video_category`
+--
+
+CREATE TABLE `app_by_video_category` (
+  `id` int(11) NOT NULL,
+  `app_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1 = Deleted, 0 = Active'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `app_by_video_category`
+--
+
+INSERT INTO `app_by_video_category` (`id`, `app_id`, `category_id`, `name`, `image`, `created_at`, `updated_at`, `is_del`) VALUES
+(1, 2, 1, 'Shivratri', '480a353514a4a7efa846f4ba8e38d183.png', '2023-02-14 16:03:23', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -87,8 +119,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`catId`, `image`, `catName`, `slug_name`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
-(1, '9e1a9d848fdd797de0f8fb1d0a5bc44e.png', 'Shivratri', 'shivratri', '2023-02-08 12:19:55.003723', NULL, NULL, NULL, 0),
-(2, '14e049217c822638313797436406b821.png', 'ABCD', 'abcd', '2023-02-09 17:34:29.767187', NULL, NULL, NULL, 0);
+(1, 'a78a355b4b97fdee9b96854018072936.png', 'Shivratri', 'shivratri', '2023-02-14 16:23:54.437451', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -129,7 +160,7 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `catId`, `images`, `is_new`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
-(1, 1, 'f6b8160faaf77bd66ce9062ac1dbbff1.png', 1, '2023-02-08 07:07:08.545648', NULL, NULL, NULL, 0);
+(1, 1, 'ca43cf4fb06566a15490915d372e5242.png', 0, '2023-02-14 10:54:49.896244', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -234,6 +265,35 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', '2023-01-20 12:30:07', '$2y$10$vFajGFE2OSJNIiMRmlBtxOoCMo8BCX9GjsMlnUxjszgG4fNT7jlma', NULL, '2023-01-20 12:30:07', NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `id` int(11) NOT NULL,
+  `catId` int(11) NOT NULL,
+  `videos` longtext NOT NULL,
+  `is_new` int(11) NOT NULL DEFAULT 0 COMMENT 'true =1,false =0',
+  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
+  `created_by` tinyint(1) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
+  `updated_by` tinyint(1) DEFAULT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `videos`
+--
+
+INSERT INTO `videos` (`id`, `catId`, `videos`, `is_new`, `created_at`, `created_by`, `updated_at`, `updated_by`, `is_deleted`) VALUES
+(1, 1, '06904768800c84bd4bf26470ff5e3cf8.mp4', 0, '2023-02-14 10:54:20.964800', NULL, NULL, NULL, 0),
+(2, 1, 'a6869d3c59e44f480a9ef907449dfc9f.mp4', 0, '2023-02-15 06:37:14.957144', NULL, NULL, NULL, 0),
+(3, 1, 'c0ce6310a4a8aefa3ca1e7bcbac3ad9a.mp4', 0, '2023-02-15 06:41:22.307978', NULL, NULL, NULL, 0),
+(4, 1, '97c7fc050e5ab541ea3df7f4aa723041.mp4', 0, '2023-02-15 06:41:47.135030', NULL, NULL, NULL, 0),
+(5, 1, 'e9e3e68f0d937ca71f75f7fae624c5de.mp4', 0, '2023-02-15 06:50:51.766876', NULL, NULL, NULL, 0);
+
 --
 -- Indexes for dumped tables
 --
@@ -245,9 +305,15 @@ ALTER TABLE `api_calls`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `app_by_category`
+-- Indexes for table `app_by_image_category`
 --
-ALTER TABLE `app_by_category`
+ALTER TABLE `app_by_image_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `app_by_video_category`
+--
+ALTER TABLE `app_by_video_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -303,6 +369,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -310,19 +382,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `api_calls`
 --
 ALTER TABLE `api_calls`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `app_by_category`
+-- AUTO_INCREMENT for table `app_by_image_category`
 --
-ALTER TABLE `app_by_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `app_by_image_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `app_by_video_category`
+--
+ALTER TABLE `app_by_video_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -359,6 +437,12 @@ ALTER TABLE `settings`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

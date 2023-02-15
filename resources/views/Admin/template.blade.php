@@ -8,7 +8,7 @@
     <meta name="author" content="mj">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset ('assets/img/brand/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset ('logo.jpg') }}" type="image/x-icon" />
     <!-- Title -->
     <title>Wallpaper | Admin</title>
     <!---Fontawesome css-->

@@ -62,11 +62,19 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::post('/delete_appdata', [MasterController::class, 'delete_appdata']);
     Route::post('/getappdata', [MasterController::class, 'getappdata']);
 
-    // App By Category
-    Route::view('/app_by_category', 'Admin/Master/app_by_category', ['title' => 'appbycategory']);
+    // App By Image Category
+    Route::view('/app_by_image_category', 'Admin/Master/app_by_image_category', ['title' => 'appbyimagecategory']);
     Route::post('/getApp', [MasterController::class, 'getApp']);
-    Route::post('/add_app_by_category', [MasterController::class, 'add_app_by_category']);
-    Route::get('/app_by_category_list', [MasterController::class, 'app_by_category_list'])->name('app_by_category_list');  // list
-    Route::post('/delete_app_by_category', [MasterController::class, 'delete_app_by_category']);
-    Route::post('/getappbycategorydata', [MasterController::class, 'getappbycategorydata']);
+    Route::post('/add_app_by_image_category', [MasterController::class, 'add_app_by_image_category']);
+    Route::get('/app_by_image_category_list', [MasterController::class, 'app_by_image_category_list'])->name('app_by_image_category_list');  // list
+    Route::post('/delete_app_by_image_category', [MasterController::class, 'delete_app_by_image_category']);
+    Route::post('/getappbyimagecategorydata', [MasterController::class, 'getappbyimagecategorydata']);
+    
+    // App By Video Category
+    Route::view('/app_by_video_category', 'Admin/Master/app_by_video_category', ['title' => 'appbyvideocategory']);
+    Route::post('/getApp', [MasterController::class, 'getApp']);
+    Route::post('/add_app_by_video_category', [MasterController::class, 'add_app_by_video_category']);
+    Route::get('/app_by_video_category_list', [MasterController::class, 'app_by_video_category_list'])->name('app_by_video_category_list');  // list
+    Route::post('/delete_app_by_video_category', [MasterController::class, 'delete_app_by_video_category']);
+    Route::post('/getappbyvideocategorydata', [MasterController::class, 'getappbyvideocategorydata']);
 });
