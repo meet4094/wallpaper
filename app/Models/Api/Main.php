@@ -54,13 +54,21 @@ class Main extends Model
 
     public function CategoryData($req)
     {
-        $CategoryData = DB::table('category')->where('catId', $req->category_id)->where('is_deleted', 0)->first();
-        $data = array([
-            'id' => $CategoryData->catId,
-            'category_name' => $CategoryData->catName,
-            'category_image' => asset('images/' . $CategoryData->slug_name . '/' . $CategoryData->image),
-        ]);
-        return $data;
+        $CategoryData = DB::table('category')
+            ->where('is_deleted', 0)
+            ->get();
+        if (empty(json_decode($CategoryData))) {
+            $data = [];
+        } else {
+            foreach ($CategoryData as $key => $Category) {
+                $data[] = array([
+                    'id' => $Category->catId,
+                    'category_name' => $Category->catName,
+                    'category_image' => asset('images/' . $Category->slug_name . '/' . $Category->image),
+                ]);
+            }
+            return $data;
+        }
     }
 
     public function ImagesData($req)
@@ -71,13 +79,86 @@ class Main extends Model
             ->where('im.is_deleted', 0)
             ->get();
 
-        foreach ($ImagesData as $Images) {
-            $data = array([
-                'id' => $Images->id,
-                'category_name' => $Images->catName,
-                'category_image' => asset('images/' . $Images->slug_name . '/' . $Images->images),
-                'is_new' => $Images->is_new,
-            ]);
+        if (empty(json_decode($ImagesData))) {
+            $data = [];
+        } else {
+            foreach ($ImagesData as $Images) {
+                $data[] = array([
+                    'id' => $Images->id,
+                    'category_name' => $Images->catName,
+                    'image' => asset('images/' . $Images->slug_name . '/' . $Images->images),
+                    'is_new' => $Images->is_new,
+                ]);
+            }
+        }
+        return $data;
+    }
+
+    public function VideosData($req)
+    {
+        $VideosData = DB::table('videos as vi')
+            ->join('category as ca', 'ca.catId', '=', 'vi.catId')
+            ->select('vi.*', 'ca.catName', 'ca.slug_name')
+            ->where('vi.is_deleted', 0)
+            ->get();
+
+        if (empty(json_decode($VideosData))) {
+            $data = [];
+        } else {
+            foreach ($VideosData as $Videos) {
+                $data[] = array([
+                    'id' => $Videos->id,
+                    'category_name' => $Videos->catName,
+                    'video' => asset('videos/' . $Videos->slug_name . '/' . $Videos->videos),
+                    'is_new' => $Videos->is_new,
+                ]);
+            }
+        }
+        return $data;
+    }
+
+    public function appbyimagecategoryData($req)
+    {
+        $ImagesData = DB::table('app_by_image_category')
+            ->select('id', 'category_id', 'name', 'image')
+            ->where('category_id', $req->main_category_id)
+            ->where('is_del', 0)
+            ->get();
+
+        if (empty(json_decode($ImagesData))) {
+            $data = [];
+        } else {
+            foreach ($ImagesData as $Images) {
+                $data[] = array([
+                    'id' => $Images->id,
+                    'main_category_id' => $Images->category_id,
+                    'name' => $Images->name,
+                    'image' => asset('images/appbyimagecategory/'  . $Images->image),
+                ]);
+            }
+        }
+        return $data;
+    }
+
+    public function appbyvideocategoryData($req)
+    {
+        $VideosData = DB::table('app_by_video_category')
+            ->select('id', 'category_id', 'name', 'image')
+            ->where('category_id', $req->main_category_id)
+            ->where('is_del', 0)
+            ->get();
+
+        if (empty(json_decode($VideosData))) {
+            $data = [];
+        } else {
+            foreach ($VideosData as $Videos) {
+                $data[] = array([
+                    'id' => $Videos->id,
+                    'main_category_id' => $Videos->category_id,
+                    'name' => $Videos->name,
+                    'image' => asset('videos/appbyvideocategory/'  . $Videos->image),
+                ]);
+            }
         }
         return $data;
     }

@@ -62,12 +62,42 @@ class MasterController extends Controller
             return $validation_data;
         }
     }
-    
-    public function appbycategoryData(Request $req)
+
+    public function VideosData(Request $req)
     {
-        $validation_data = $this->Validation->appbycategoryData($req);
+        $validation_data = $this->Validation->VideosData($req);
         if ($validation_data->original['statuscode'] == 1) {
-            $data = $this->Main->appbycategoryData($req);
+            $data = $this->Main->VideosData($req);
+            return response()->json([
+                "statuscode" => 1,
+                "msg" => "success!!.",
+                "data" => $data
+            ]);
+        } else {
+            return $validation_data;
+        }
+    }
+    
+    public function appbyimagecategoryData(Request $req)
+    {
+        $validation_data = $this->Validation->appbyimagecategoryData($req);
+        if ($validation_data->original['statuscode'] == 1) {
+            $data = $this->Main->appbyimagecategoryData($req);
+            return response()->json([
+                "statuscode" => 1,
+                "msg" => "success!!.",
+                "data" => $data
+            ]);
+        } else {
+            return $validation_data;
+        }
+    }
+
+    public function appbyvideocategoryData(Request $req)
+    {
+        $validation_data = $this->Validation->appbyvideocategoryData($req);
+        if ($validation_data->original['statuscode'] == 1) {
+            $data = $this->Main->appbyvideocategoryData($req);
             return response()->json([
                 "statuscode" => 1,
                 "msg" => "success!!.",

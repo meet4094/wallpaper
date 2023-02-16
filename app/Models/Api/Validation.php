@@ -48,10 +48,10 @@ class Validation extends Model
         $AppToken = $req->app_token;
         $DeviceId = $req->device_id;
         $AppId = $req->app_id;
-        $CategoryId = $req->category_id;
+        // $CategoryId = $req->category_id;
         $RequestTokenData = DB::table('settings')->where('request_token', $request_token)->first();
         $AppTokenData = DB::table('api_calls')->where('app_token', $AppToken)->first();
-        $CategoryData = DB::table('category')->where('catId', $CategoryId)->first();
+        // $CategoryData = DB::table('category')->where('catId', $CategoryId)->first();
 
         if (empty($request_token) || empty($RequestTokenData->request_token)) {
             return response()->json([
@@ -63,7 +63,7 @@ class Validation extends Model
                 'app_token' => 'required',
                 'device_id' => 'required',
                 'app_id' => 'required',
-                'category_id' => 'required',
+                // 'category_id' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -86,11 +86,11 @@ class Validation extends Model
                         "statuscode" => 7,
                         "msg" => "App Id Invalide"
                     ]);
-                } else if ($CategoryData == '' || $CategoryId != $CategoryData->catId) {
-                    return response()->json([
-                        "statuscode" => 7,
-                        "msg" => "Category Id Invalide"
-                    ]);
+                // } else if ($CategoryData == '' || $CategoryId != $CategoryData->catId) {
+                //     return response()->json([
+                //         "statuscode" => 7,
+                //         "msg" => "Category Id Invalide"
+                //     ]);
                 } else {
                     return response()->json([
                         "statuscode" => 1,
@@ -100,6 +100,7 @@ class Validation extends Model
             }
         }
     }
+
     public function ImagesData($req)
     {
         $request_token = $req->header('request-token');
@@ -144,11 +145,188 @@ class Validation extends Model
                         "statuscode" => 7,
                         "msg" => "App Id Invalide"
                     ]);
-                // } else if ($CategoryData == '' || $CategoryId != $CategoryData->catId) {
-                //     return response()->json([
-                //         "statuscode" => 7,
-                //         "msg" => "Category Id Invalide"
-                //     ]);
+                    // } else if ($CategoryData == '' || $CategoryId != $CategoryData->catId) {
+                    //     return response()->json([
+                    //         "statuscode" => 7,
+                    //         "msg" => "Category Id Invalide"
+                    //     ]);
+                } else {
+                    return response()->json([
+                        "statuscode" => 1,
+                        "msg" => "Success"
+                    ]);
+                }
+            }
+        }
+    }
+    
+    public function VideosData($req)
+    {
+        $request_token = $req->header('request-token');
+        $AppToken = $req->app_token;
+        $DeviceId = $req->device_id;
+        $AppId = $req->app_id;
+        $CategoryId = $req->category_id;
+        $RequestTokenData = DB::table('settings')->where('request_token', $request_token)->first();
+        $AppTokenData = DB::table('api_calls')->where('app_token', $AppToken)->first();
+        // $CategoryData = DB::table('category')->where('catId', $CategoryId)->first();
+
+        if (empty($request_token) || empty($RequestTokenData->request_token)) {
+            return response()->json([
+                "statuscode" => 7,
+                "msg" => "Request token missing"
+            ]);
+        } else {
+            $validator = Validator::make($req->all(), [
+                'app_token' => 'required',
+                'device_id' => 'required',
+                'app_id' => 'required',
+                // 'category_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    "statuscode" => 0,
+                    'error' => $validator->errors()->toArray()
+                ]);
+            } else {
+                if (empty($AppToken) || empty($AppTokenData->app_token)) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "App token Invalide"
+                    ]);
+                } else if ($DeviceId != $AppTokenData->device_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "Device Id Invalide"
+                    ]);
+                } else if ($AppId != $AppTokenData->app_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "App Id Invalide"
+                    ]);
+                    // } else if ($CategoryData == '' || $CategoryId != $CategoryData->catId) {
+                    //     return response()->json([
+                    //         "statuscode" => 7,
+                    //         "msg" => "Category Id Invalide"
+                    //     ]);
+                } else {
+                    return response()->json([
+                        "statuscode" => 1,
+                        "msg" => "Success"
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function appbyimagecategoryData($req)
+    {
+        $request_token = $req->header('request-token');
+        $AppToken = $req->app_token;
+        $DeviceId = $req->device_id;
+        $AppId = $req->app_id;
+        $CategoryId = $req->main_category_id;
+        $RequestTokenData = DB::table('settings')->where('request_token', $request_token)->first();
+        $AppTokenData = DB::table('api_calls')->where('app_token', $AppToken)->first();
+        $CategoryData = DB::table('app_by_image_category')->where('category_id', $CategoryId)->first();
+
+        if (empty($request_token) || empty($RequestTokenData->request_token)) {
+            return response()->json([
+                "statuscode" => 7,
+                "msg" => "Request token missing"
+            ]);
+        } else {
+            $validator = Validator::make($req->all(), [
+                'app_token' => 'required',
+                'device_id' => 'required',
+                'app_id' => 'required',
+                'main_category_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    "statuscode" => 0,
+                    'error' => $validator->errors()->toArray()
+                ]);
+            } else {
+                if (empty($AppToken) || empty($AppTokenData->app_token)) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "App token Invalide"
+                    ]);
+                } else if ($DeviceId != $AppTokenData->device_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "Device Id Invalide"
+                    ]);
+                } else if ($AppId != $AppTokenData->app_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "App Id Invalide"
+                    ]);
+                } else if ($CategoryData == '' || $CategoryId != $CategoryData->category_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "Main Category Id Invalide"
+                    ]);
+                } else {
+                    return response()->json([
+                        "statuscode" => 1,
+                        "msg" => "Success"
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function appbyvideocategoryData($req)
+    {
+        $request_token = $req->header('request-token');
+        $AppToken = $req->app_token;
+        $DeviceId = $req->device_id;
+        $AppId = $req->app_id;
+        $CategoryId = $req->main_category_id;
+        $RequestTokenData = DB::table('settings')->where('request_token', $request_token)->first();
+        $AppTokenData = DB::table('api_calls')->where('app_token', $AppToken)->first();
+        $CategoryData = DB::table('app_by_video_category')->where('category_id', $CategoryId)->first();
+
+        if (empty($request_token) || empty($RequestTokenData->request_token)) {
+            return response()->json([
+                "statuscode" => 7,
+                "msg" => "Request token missing"
+            ]);
+        } else {
+            $validator = Validator::make($req->all(), [
+                'app_token' => 'required',
+                'device_id' => 'required',
+                'app_id' => 'required',
+                'main_category_id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    "statuscode" => 0,
+                    'error' => $validator->errors()->toArray()
+                ]);
+            } else {
+                if (empty($AppToken) || empty($AppTokenData->app_token)) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "App token Invalide"
+                    ]);
+                } else if ($DeviceId != $AppTokenData->device_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "Device Id Invalide"
+                    ]);
+                } else if ($AppId != $AppTokenData->app_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "App Id Invalide"
+                    ]);
+                } else if ($CategoryData == '' || $CategoryId != $CategoryData->category_id) {
+                    return response()->json([
+                        "statuscode" => 7,
+                        "msg" => "Main Category Id Invalide"
+                    ]);
                 } else {
                     return response()->json([
                         "statuscode" => 1,

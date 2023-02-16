@@ -19,7 +19,9 @@ use App\Http\Controllers\Api\MasterController;
 Route::post('apicall', [MasterController::class, 'ApiCallData']);
 Route::post('category', [MasterController::class, 'CategoryData']);
 Route::post('images', [MasterController::class, 'ImagesData']);
-Route::post('appbycategory', [MasterController::class, 'appbycategoryData']);
+Route::post('videos', [MasterController::class, 'VideosData']);
+Route::post('appbyimagecategory', [MasterController::class, 'appbyimagecategoryData']);
+Route::post('appbyvideocategory', [MasterController::class, 'appbyvideocategoryData']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
