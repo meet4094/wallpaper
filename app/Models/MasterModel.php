@@ -166,14 +166,12 @@ class MasterModel extends Model
                 $extension = $file->extension();
                 $fileName = md5(uniqid() . time()) . '.' . $extension;
                 $file->move(public_path('/videos/' . $slug_name . '/'), $fileName);
-                $data = array(
-                    'catId' => $req['category'],
-                    'videos' => $fileName,
-                    'is_new' => $req['new'],
-                );
 
-                DB::table('videos')->where('id', $req['videoId'])->update($data);
+                $data['videos'] = $fileName;
             }
+            $data['catId'] = $req['category'];
+            $data['is_new'] = $req['new'];
+            DB::table('videos')->where('id', $req['videoId'])->update($data);
             return response()->json(['st' => 'success', 'msg' => 'Update Successfully..',]);
         } else {
 
@@ -272,13 +270,11 @@ class MasterModel extends Model
                 $extension = $file->extension();
                 $fileName = md5(uniqid() . time()) . '.' . $extension;
                 $file->move(public_path('/images/appbyimagecategory/'), $fileName);
+                $data['image'] = $fileName;
             }
-            $data = array(
-                'app_id' => $req['appId'],
-                'category_id' => $req['categoryId'],
-                'name' => $req['category'],
-                'image' => $fileName
-            );
+            $data['app_id'] = $req['appId'];
+            $data['category_id'] = $req['categoryId'];
+            $data['name'] = $req['category'];
 
             DB::table('app_by_image_category')->where('id', $req['appbycatId'])->update($data);
             return response()->json(['st' => 'success', 'msg' => 'Update Successfully..',]);
@@ -302,7 +298,7 @@ class MasterModel extends Model
         }
     }
 
-    public function delete_app_image_by_category($req)
+    public function delete_app_by_image_category($req)
     {
         $id = $req['id'];
         $drdata = DB::table('app_by_image_category')->where('id', $id)->update(array('is_del' => 1));
@@ -338,13 +334,11 @@ class MasterModel extends Model
                 $extension = $file->extension();
                 $fileName = md5(uniqid() . time()) . '.' . $extension;
                 $file->move(public_path('/images/appbyvideocategory/'), $fileName);
+                $data['image'] = $fileName;
             }
-            $data = array(
-                'app_id' => $req['appId'],
-                'category_id' => $req['categoryId'],
-                'name' => $req['category'],
-                'image' => $fileName
-            );
+            $data['app_id'] = $req['appId'];
+            $data['category_id'] = $req['categoryId'];
+            $data['name'] = $req['category'];
 
             DB::table('app_by_video_category')->where('id', $req['appbycatId'])->update($data);
             return response()->json(['st' => 'success', 'msg' => 'Update Successfully..',]);

@@ -356,7 +356,7 @@ class MasterController extends Controller
     // App By Image Category
     public function add_app_by_image_category(Request $req)
     {
-        if (empty($req->itemId)) {
+        if (empty($req->appbycatId)) {
             $rules = array(
                 'appId' => 'required',
                 'categoryId' => 'required',
@@ -447,7 +447,7 @@ class MasterController extends Controller
     // App By Video Category
     public function add_app_by_video_category(Request $req)
     {
-        if (empty($req->itemId)) {
+        if (empty($req->appbycatId)) {
             $rules = array(
                 'appId' => 'required',
                 'categoryId' => 'required',
