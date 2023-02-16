@@ -56,7 +56,7 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->editColumn('image', function ($row) {
                     $url = asset('images/' . $row->slug_name);
-                    return '<img src="  ' . $url . '/' . $row->image . ' " height="50">';
+                    return '<a target="_blank" href="' . $url . '/' . $row->image . '"><img src="  ' . $url . '/' . $row->image . ' " height="100"></a>';
                 })
                 ->addColumn('action', function ($row) {
                     $update_btn = '<button title="' . $row->catName . '" class="btn btn-link" onclick="edit_category(this)" data-val="' . $row->catId . '"><i class="far fa-edit"></i></button>';
@@ -149,7 +149,7 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->editColumn('images', function ($row) {
                     $url = asset('images/' . $row->slug_name);
-                    return '<img src=" ' . $url . '/' . $row->images . ' " height="50">';
+                    return '<a target="_blank" href="' . $url . '/' . $row->images . '"><img src=" ' . $url . '/' . $row->images . ' " height="100"></a>';
                 })
                 ->addColumn('action', function ($row) {
                     $update_btn = '<button class="btn btn-link" onclick="edit_item(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
@@ -230,7 +230,7 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->editColumn('videos', function ($row) {
                     $url = asset('videos/' . $row->slug_name);
-                    return '<video controls src=" ' . $url . '/' . $row->videos . ' "width="180">';
+                    return '<a target="_blank" href="' . $url . '/' . $row->videos . '"><video controls src=" ' . $url . '/' . $row->videos . ' "width="180"></a>';
                 })
                 ->addColumn('action', function ($row) {
                     $update_btn = '<button class="btn btn-link" onclick="edit_video(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
@@ -400,7 +400,7 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->editColumn('images', function ($row) {
                     $url = asset('images/appbyimagecategory');
-                    return '<img src=" ' . $url . '/' . $row->image . ' " height="50">';
+                    return '<a target="_blank" href="' . $url . '/' . $row->image . '"><img src=" ' . $url . '/' . $row->image . ' " height="100"></a>';
                 })
                 ->addColumn('action', function ($row) {
                     $update_btn = '<button class="btn btn-link" title="' . $row->name . '" onclick="edit_app_by_image_category(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
@@ -491,7 +491,7 @@ class MasterController extends Controller
                 ->addIndexColumn()
                 ->editColumn('images', function ($row) {
                     $url = asset('images/appbyvideocategory');
-                    return '<img src=" ' . $url . '/' . $row->image . ' " height="50">';
+                    return '<a target="_blank" href="' . $url . '/' . $row->image . '"><img src=" ' . $url . '/' . $row->image . ' " height="100"></a>';
                 })
                 ->addColumn('action', function ($row) {
                     $update_btn = '<button class="btn btn-link" title="' . $row->name . '" onclick="edit_app_by_video_category(this)" data-val="' . $row->id . '"><i class="far fa-edit"></i></button>';
