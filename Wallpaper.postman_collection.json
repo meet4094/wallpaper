@@ -7,132 +7,13 @@
 	},
 	"item": [
 		{
-			"name": "Category",
+			"name": "CallAppsApi",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Request-Token",
-						"value": "MNhKK0nuG4ZlXxf",
-						"type": "text"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "app_token",
-							"value": "qKEktCNnOOgZ6yg",
-							"type": "text"
-						},
-						{
-							"key": "device_id",
-							"value": "TEST4",
-							"type": "text"
-						},
-						{
-							"key": "app_id",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "category_id",
-							"value": "1",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/category",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"category"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Images",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Request-Token",
-						"value": "MNhKK0nuG4ZlXxf",
-						"type": "text"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "app_token",
-							"value": "qKEktCNnOOgZ6yg",
-							"type": "text"
-						},
-						{
-							"key": "device_id",
-							"value": "TEST4",
-							"type": "text"
-						},
-						{
-							"key": "app_id",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "category_id",
-							"value": "1",
-							"type": "text",
-							"disabled": true
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/images",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"images"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Api Call",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Request-Token",
-						"value": "MNhKK0nuG4ZlXxf",
+						"value": "IMXfgUSO9pKZm5j",
 						"type": "text"
 					},
 					{
@@ -167,7 +48,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/apicall",
+					"raw": "http://127.0.0.1:8000/api/apps/callappsapi",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -178,7 +59,372 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"apicall"
+						"apps",
+						"callappsapi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StatusImageCategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "IMXfgUSO9pKZm5j",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "ECX1ER5EMCXI5gD",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/statusimage/category",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"statusimage",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StatusImages",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "IMXfgUSO9pKZm5j",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "ECX1ER5EMCXI5gD",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/stausimage/images",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"stausimage",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StatusVideoCategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "IMXfgUSO9pKZm5j",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "ECX1ER5EMCXI5gD",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/statusvideo/category",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"statusvideo",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StatusVideos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "IMXfgUSO9pKZm5j",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "ECX1ER5EMCXI5gD",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/statusvideo/videos",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"statusvideo",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AppByStatusImageCategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "IMXfgUSO9pKZm5j",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "ECX1ER5EMCXI5gD",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "main_category_id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/appbycategory/statusimagecategory",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"appbycategory",
+						"statusimagecategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AppByStatusVideoCategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Request-Token",
+						"value": "IMXfgUSO9pKZm5j",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "app_token",
+							"value": "ECX1ER5EMCXI5gD",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "TEST4",
+							"type": "text"
+						},
+						{
+							"key": "app_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "main_category_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/appbycategory/statusvideocategory",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"appbycategory",
+						"statusvideocategory"
 					]
 				}
 			},
