@@ -16,12 +16,13 @@ use App\Http\Controllers\Api\MasterController;
 |
 */
 
-Route::post('apicall', [MasterController::class, 'ApiCallData']);
-Route::post('category', [MasterController::class, 'CategoryData']);
-Route::post('images', [MasterController::class, 'ImagesData']);
-Route::post('videos', [MasterController::class, 'VideosData']);
-Route::post('appbyimagecategory', [MasterController::class, 'appbyimagecategoryData']);
-Route::post('appbyvideocategory', [MasterController::class, 'appbyvideocategoryData']);
+Route::post('apps/callappsapi', [MasterController::class, 'ApiCallData']);
+Route::post('statusimage/category', [MasterController::class, 'StatusImageCategoryData']);
+Route::post('stausimage/images', [MasterController::class, 'StatusImagesData']);
+Route::post('statusvideo/category', [MasterController::class, 'StatusVideoCategoryData']);
+Route::post('statusvideo/videos', [MasterController::class, 'StatusVideosData']);
+Route::post('appbycategory/statusimagecategory', [MasterController::class, 'AppByImageCategoryData']);
+Route::post('appbycategory/statusvideocategory', [MasterController::class, 'AppByVideoCategoryData']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

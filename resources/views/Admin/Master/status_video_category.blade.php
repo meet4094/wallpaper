@@ -2,16 +2,16 @@
 @section('main-section')
     <div class="page-header">
         <div>
-            <h2 class="main-content-title tx-24 mg-b-5">App Data</h2>
+            <h2 class="main-content-title tx-24 mg-b-5">Category</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Master</li>
-                <li class="breadcrumb-item active" aria-current="page">App List</li>
+                <li class="breadcrumb-item active" aria-current="page">Category List</li>
             </ol>
         </div>
         <div class="btn btn-list">
             <button type="button" class="btn btn-outline-primary rounded" id="toggler" data-toggle="modal"
                 data-target="#add_category_modal">
-                Add App
+                Add Category
             </button>
             <div id="add_category_modal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -23,10 +23,10 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="{{ url('add_app') }}" class="ajax-form-submit" id="cform" method="post"
+                        <form action="{{ url('add_status_video_category') }}" class="ajax-form-submit" id="cform" method="post"
                             enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="appId" id="appId" value="">
+                            <input type="hidden" name="catId" id="catId" value="">
                             <div class="modal-body">
                                 <div class="row" style="display: flex;justify-content: center;">
                                     <div class="col-12">
@@ -35,56 +35,31 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label class="float-left" for="appname">App Name<span
+                                                            <label class="float-left" for="category">Name<span
                                                                     class="tx-danger">*</span></label>
-                                                            <input type="text" class="form-control" id="appname"
-                                                                placeholder='Enter app name' name="appname" value="">
+                                                            <input type="text" class="form-control" id="category"
+                                                                placeholder='Enter category' name="category" value="">
                                                             <span
-                                                                class="float-left tx-danger error_text appname_error"></span>
+                                                                class="float-left tx-danger error_text category_error"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label class="float-left" for="packagename">Package Name<span
+                                                            <label class="float-left" for="image">Image<span
                                                                     class="tx-danger">*</span></label>
-                                                            <input type="text" class="form-control" id="packagename"
-                                                                placeholder='Enter package name' name="packagename"
-                                                                value="">
-                                                            <span
-                                                                class="float-left tx-danger error_text packagename_error"></span>
+                                                            <div class="input-group">
+                                                                <input type="file" class="form-control"
+                                                                    id="dropify_image" name="image" data-default-file=""
+                                                                    data-height="200"accept="image/png, image/gif, image/jpeg">
+                                                            </div>
                                                         </div>
+                                                        <div class="form-group" id="profile_img_container">
+                                                        </div>
+                                                        <span class="float-left tx-danger error_text image_error"></span>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="float-left" for="accountname">Account Name<span
-                                                                    class="tx-danger">*</span></label>
-                                                            <input type="text" class="form-control" id="accountname"
-                                                                placeholder='Enter account name' name="accountname"
-                                                                value="">
-                                                            <span
-                                                                class="float-left tx-danger error_text accountname_error"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label class="float-left" for="appversion">App Version<span
-                                                                    class="tx-danger">*</span></label>
-                                                            <input type="text" class="form-control" id="appversion"
-                                                                placeholder='Enter app version' name="appversion"
-                                                                value="">
-                                                            <span
-                                                                class="float-left tx-danger error_text appversion_error"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <input id="requesttoken" name="request_token" value=""
-                                                    class="form-control" type="hidden">
                                             </div>
                                         </div>
                                         <div class="error-msg tx-danger"></div>
@@ -93,8 +68,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" id="save_data" type="submit"
-                                    value="Submit">Submit</button>
+                                <button class="btn btn-primary" id="save_data" type="submit" value="Submit">Submit</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </form>
@@ -115,11 +89,8 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>App Name</th>
-                                        <th>Package Name</th>
-                                        <th>Account Name</th>
-                                        <th>App Version</th>
-                                        <th>Req-Token</th>
+                                        <th>Background Image</th>
+                                        <th>Category Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -215,30 +186,18 @@
                 "order": [
                     [0, "desc"]
                 ],
-                ajax: "{{ route('app_data_list') }}",
+                ajax: "{{ route('status_video_category_list') }}",
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        data: 'catId',
+                        name: 'catId'
                     },
                     {
-                        data: 'app_name',
-                        name: 'app_name',
+                        data: 'image',
+                        name: 'image'
                     },
                     {
-                        data: 'package_name',
-                        name: 'package_name',
-                    },
-                    {
-                        data: 'account_name',
-                        name: 'account_name',
-                    },
-                    {
-                        data: 'app_version',
-                        name: 'app_version',
-                    },
-                    {
-                        data: 'request_token',
-                        name: 'request_token',
+                        data: 'catName',
+                        name: 'catName'
                     },
                     {
                         data: 'action',
@@ -266,7 +225,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "{{ url('delete_app_data') }}",
+                        url: "{{ url('delete_status_video_category') }}",
                         type: 'post',
                         data: {
                             _token: CSRF_TOKEN,
@@ -292,12 +251,11 @@
             })
         }
 
-        function edit_app_data(edit_appdata) {
-            var id = $(edit_appdata).data('val');
-            console.log(id);
+        function edit_status_video_category(edit_category) {
+            var id = $(edit_category).data('val');
             $.ajax({
                 type: 'POST',
-                url: "{{ url('get_app_data') }}",
+                url: "{{ url('get_status_video_category_data') }}",
                 data: {
                     id: id
                 },
@@ -307,12 +265,11 @@
                         $('#profile_img_container').html('');
                         $('.modal-title').html('Edit Category');
                         $('.dropify-clear').trigger("click");
-                        $('#appId').val(response.msg.id);
-                        $('#appname').val(response.msg.app_name);
-                        $('#packagename').val(response.msg.package_name);
-                        $('#accountname').val(response.msg.account_name);
-                        $('#appversion').val(response.msg.app_version);
-                        $('#requesttoken').val(response.msg.request_token);
+                        $('#catId').val(response.msg.catId);
+                        $('#category').val(response.msg.catName);
+                        $('#profile_img_container').append('<img width="200"; src="' +
+                            response.msg.image +
+                            '" />');
                         $('#add_category_modal').modal('show');
                     } else {
                         alert('failed');

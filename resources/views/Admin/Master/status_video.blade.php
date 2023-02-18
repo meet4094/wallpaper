@@ -35,7 +35,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ url('add_videos') }}" class="ajax-form-submit" id="cform" method="post"
+                    <form action="{{ url('add_status_videos') }}" class="ajax-form-submit" id="cform" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="videoId" id="videoId" value="">
@@ -172,7 +172,7 @@
             // allowClear: true,
             width: "100%",
             ajax: {
-                url: "{{ url('getCategory') }}",
+                url: "{{ url('get_status_video_Category') }}",
                 type: "post",
                 allowClear: true,
                 dataType: 'json',
@@ -254,7 +254,7 @@
                     [0, "desc"]
                 ],
                 ajax: {
-                    url: '{{ route('videos_list') }}',
+                    url: '{{ route("status_videos_list") }}',
                     data: {
                         'category_id': category_id
                     }
@@ -301,7 +301,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "{{ url('delete_video') }}",
+                        url: "{{ url('delete_status_videos') }}",
                         type: 'post',
                         data: {
                             _token: CSRF_TOKEN,
@@ -327,12 +327,12 @@
             })
         }
 
-        function edit_video(edit_item) {
+        function edit_status_video(edit_item) {
             var id = $(edit_item).data('val');
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type: 'POST',
-                url: "{{ url('getvideodata') }}",
+                url: "{{ url('get_status_videos_data') }}",
                 data: {
                     _token: CSRF_TOKEN,
                     id: id

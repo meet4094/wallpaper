@@ -28,53 +28,64 @@ Route::controller(LoginController::class)->group(function () {
 });
 Auth::routes();
 Route::middleware([Authenticate::class])->group(function () {
-    // Category
-    Route::post('/add_category', [MasterController::class, 'add_category']);
-    Route::view('/category', 'Admin/Master/category', ['title' => 'category']);
-    Route::get('/category_list', [MasterController::class, 'category_list'])->name('category_list');  // list
-    Route::post('/delete_category', [MasterController::class, 'delete_category']);
-    Route::post('/getcategorydata', [MasterController::class, 'getcategorydata']);
 
-    // Image Item
-    Route::view('/category_items', 'Admin/Master/category_items', ['title' => 'items']);
-    Route::post('/getCategory', [MasterController::class, 'getCategory']);
-    Route::post('/add_items', [MasterController::class, 'add_items']);
-    Route::get('/items_list', [MasterController::class, 'items_list'])->name('items_list');  // list
-    Route::post('/delete_item', [MasterController::class, 'delete_item']);
-    Route::post('/getitemdata', [MasterController::class, 'getitemdata']);
+    // Dashboard
+    Route::view('/dashboard', 'Admin/Master/dashboard', ['title' => 'dashboard']);
 
-    // Video Item
-    Route::view('/category_videos', 'Admin/Master/category_videos', ['title' => 'videos']);
-    Route::post('/getCategory', [MasterController::class, 'getCategory']);
-    Route::post('/add_videos', [MasterController::class, 'add_videos']);
-    Route::get('/videos_list', [MasterController::class, 'videos_list'])->name('videos_list');  // list
-    Route::post('/delete_video', [MasterController::class, 'delete_video']);
-    Route::post('/getvideodata', [MasterController::class, 'getvideodata']);
+    // Status Image Category
+    Route::view('/status_image_category', 'Admin/Master/status_image_category', ['title' => 'status_image_category']);
+    Route::get('/status_image_category_list', [MasterController::class, 'status_image_category_list'])->name('status_image_category_list');  // list
+    Route::post('/add_status_image_category', [MasterController::class, 'add_status_image_category']);
+    Route::post('/delete_status_image_category', [MasterController::class, 'delete_status_image_category']);
+    Route::post('/get_status_image_category_data', [MasterController::class, 'get_status_image_category_data']);
+
+    // Status Image
+    Route::view('/status_image', 'Admin/Master/status_image', ['title' => 'status_image']);
+    Route::get('/status_images_list', [MasterController::class, 'status_images_list'])->name('status_images_list');  // list
+    Route::post('/get_status_image_Category', [MasterController::class, 'get_status_image_Category']);
+    Route::post('/add_status_images', [MasterController::class, 'add_status_images']);
+    Route::post('/delete_status_images', [MasterController::class, 'delete_status_images']);
+    Route::post('/get_status_images_data', [MasterController::class, 'get_status_images_data']);
+
+    // App By Image Category
+    Route::view('/app_by_image_category', 'Admin/Master/app_by_image_category', ['title' => 'app_by_image_category']);
+    Route::post('/getApp', [MasterController::class, 'getApp']);
+    Route::post('/add_app_by_image_category', [MasterController::class, 'add_app_by_image_category']);
+    Route::get('/app_by_image_category_list', [MasterController::class, 'app_by_image_category_list'])->name('app_by_image_category_list');  // list
+    Route::post('/delete_app_by_image_category', [MasterController::class, 'delete_app_by_image_category']);
+    Route::post('/get_app_by_image_category_data', [MasterController::class, 'get_app_by_image_category_data']);
+
+    //Status Video Category
+    Route::view('/status_video_category', 'Admin/Master/status_video_category', ['title' => 'status_video_category']);
+    Route::get('/status_video_category_list', [MasterController::class, 'status_video_category_list'])->name('status_video_category_list');  // list
+    Route::post('/add_status_video_category', [MasterController::class, 'add_status_video_category']);
+    Route::post('/delete_status_video_category', [MasterController::class, 'delete_status_video_category']);
+    Route::post('/get_status_video_category_data', [MasterController::class, 'get_status_video_category_data']);
+
+    //Status Video 
+    Route::view('/status_video', 'Admin/Master/status_video', ['title' => 'status_video']);
+    Route::get('/status_videos_list', [MasterController::class, 'status_videos_list'])->name('status_videos_list');  // list
+    Route::post('/get_status_video_Category', [MasterController::class, 'get_status_video_Category']);
+    Route::post('/add_status_videos', [MasterController::class, 'add_status_videos']);
+    Route::post('/delete_status_videos', [MasterController::class, 'delete_status_videos']);
+    Route::post('/get_status_videos_data', [MasterController::class, 'get_status_videos_data']);
+
+    // App By Video Category
+    Route::view('/app_by_video_category', 'Admin/Master/app_by_video_category', ['title' => 'app_by_video_category']);
+    Route::post('/add_app_by_video_category', [MasterController::class, 'add_app_by_video_category']);
+    Route::get('/app_by_video_category_list', [MasterController::class, 'app_by_video_category_list'])->name('app_by_video_category_list');  // list
+    Route::post('/delete_app_by_video_category', [MasterController::class, 'delete_app_by_video_category']);
+    Route::post('/get_app_by_video_category_data', [MasterController::class, 'get_app_by_video_category_data']);
 
     // Api Call
     Route::view('/api_call', 'Admin/Master/api_call', ['title' => 'api_call']);
     Route::get('/api_call_list', [MasterController::class, 'api_call_list'])->name('api_call_list');  // list
 
     // App Setting
-    Route::view('/app_setting', 'Admin/Master/app_setting', ['title' => 'appsetting']);
-    Route::post('/add_app', [MasterController::class, 'add_app']);
+    Route::view('/app_setting', 'Admin/Master/app_setting', ['title' => 'app_setting']);
     Route::get('/app_data_list', [MasterController::class, 'app_data_list'])->name('app_data_list');  // list
-    Route::post('/delete_appdata', [MasterController::class, 'delete_appdata']);
-    Route::post('/getappdata', [MasterController::class, 'getappdata']);
-
-    // App By Image Category
-    Route::view('/app_by_image_category', 'Admin/Master/app_by_image_category', ['title' => 'appbyimagecategory']);
-    Route::post('/getApp', [MasterController::class, 'getApp']);
-    Route::post('/add_app_by_image_category', [MasterController::class, 'add_app_by_image_category']);
-    Route::get('/app_by_image_category_list', [MasterController::class, 'app_by_image_category_list'])->name('app_by_image_category_list');  // list
-    Route::post('/delete_app_by_image_category', [MasterController::class, 'delete_app_by_image_category']);
-    Route::post('/getappbyimagecategorydata', [MasterController::class, 'getappbyimagecategorydata']);
-    
-    // App By Video Category
-    Route::view('/app_by_video_category', 'Admin/Master/app_by_video_category', ['title' => 'appbyvideocategory']);
-    Route::post('/getApp', [MasterController::class, 'getApp']);
-    Route::post('/add_app_by_video_category', [MasterController::class, 'add_app_by_video_category']);
-    Route::get('/app_by_video_category_list', [MasterController::class, 'app_by_video_category_list'])->name('app_by_video_category_list');  // list
-    Route::post('/delete_app_by_video_category', [MasterController::class, 'delete_app_by_video_category']);
-    Route::post('/getappbyvideocategorydata', [MasterController::class, 'getappbyvideocategorydata']);
+    Route::post('/add_app', [MasterController::class, 'add_app']);
+    Route::post('/get_App', [MasterController::class, 'get_App']);
+    Route::post('/delete_app_data', [MasterController::class, 'delete_app_data']);
+    Route::post('/get_app_data', [MasterController::class, 'get_app_data']);
 });

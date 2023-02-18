@@ -191,7 +191,7 @@
             // allowClear: true,
             width: "100%",
             ajax: {
-                url: "{{ url('getCategory') }}",
+                url: "{{ url('get_status_image_Category') }}",
                 type: "post",
                 allowClear: true,
                 dataType: 'json',
@@ -222,7 +222,7 @@
             // allowClear: true,
             width: "100%",
             ajax: {
-                url: "{{ url('getApp') }}",
+                url: "{{ url('get_App') }}",
                 type: "post",
                 allowClear: true,
                 dataType: 'json',
@@ -315,7 +315,7 @@
                     [0, "desc"]
                 ],
                 ajax: {
-                    url: '{{ route('app_by_image_category_list') }}',
+                    url: '{{ route("app_by_image_category_list") }}',
                     data: {
                         'category_id': category_id,
                         'app_id': app_id,
@@ -401,7 +401,7 @@
             var id = $(edit_category).data('val');
             $.ajax({
                 type: 'POST',
-                url: "{{ url('getappbyimagecategorydata') }}",
+                url: "{{ url('get_app_by_image_category_data') }}",
                 data: {
                     id: id
                 },

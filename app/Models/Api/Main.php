@@ -52,9 +52,9 @@ class Main extends Model
         return $Api_CallData;
     }
 
-    public function CategoryData($req)
+    public function StatusImageCategoryData($req)
     {
-        $CategoryData = DB::table('category')
+        $CategoryData = DB::table('status_image_category')
             ->where('is_deleted', 0)
             ->get();
         if (empty(json_decode($CategoryData))) {
@@ -64,19 +64,19 @@ class Main extends Model
                 $data[] = array([
                     'id' => $Category->catId,
                     'category_name' => $Category->catName,
-                    'category_image' => asset('images/' . $Category->slug_name . '/' . $Category->image),
+                    'category_image' => asset('images/statusimages/' . $Category->slug_name . '/' . $Category->image),
                 ]);
             }
-            return $data;
         }
+        return $data;
     }
 
-    public function ImagesData($req)
+    public function StatusImagesData($req)
     {
-        $ImagesData = DB::table('images as im')
-            ->join('category as ca', 'ca.catId', '=', 'im.catId')
-            ->select('im.*', 'ca.catName', 'ca.slug_name')
-            ->where('im.is_deleted', 0)
+        $ImagesData = DB::table('status_images as si')
+            ->join('status_image_category as sic', 'sic.catId', '=', 'si.catId')
+            ->select('si.*', 'sic.catName', 'sic.slug_name')
+            ->where('si.is_deleted', 0)
             ->get();
 
         if (empty(json_decode($ImagesData))) {
@@ -86,7 +86,7 @@ class Main extends Model
                 $data[] = array([
                     'id' => $Images->id,
                     'category_name' => $Images->catName,
-                    'image' => asset('images/' . $Images->slug_name . '/' . $Images->images),
+                    'image' => asset('images/statusimages/' . $Images->slug_name . '/' . $Images->images),
                     'is_new' => $Images->is_new,
                 ]);
             }
@@ -94,12 +94,31 @@ class Main extends Model
         return $data;
     }
 
-    public function VideosData($req)
+    public function StatusVideoCategoryData($req)
     {
-        $VideosData = DB::table('videos as vi')
-            ->join('category as ca', 'ca.catId', '=', 'vi.catId')
-            ->select('vi.*', 'ca.catName', 'ca.slug_name')
-            ->where('vi.is_deleted', 0)
+        $CategoryData = DB::table('status_video_category')
+            ->where('is_deleted', 0)
+            ->get();
+        if (empty(json_decode($CategoryData))) {
+            $data = [];
+        } else {
+            foreach ($CategoryData as $key => $Category) {
+                $data[] = array([
+                    'id' => $Category->catId,
+                    'category_name' => $Category->catName,
+                    'category_image' => asset('images/statusvideos/' . $Category->slug_name . '/' . $Category->image),
+                ]);
+            }
+        }
+        return $data;
+    }
+
+    public function StatusVideosData($req)
+    {
+        $VideosData = DB::table('status_videos as sv')
+            ->join('status_video_category as svc', 'svc.catId', '=', 'sv.catId')
+            ->select('sv.*', 'svc.catName', 'svc.slug_name')
+            ->where('sv.is_deleted', 0)
             ->get();
 
         if (empty(json_decode($VideosData))) {
@@ -109,7 +128,7 @@ class Main extends Model
                 $data[] = array([
                     'id' => $Videos->id,
                     'category_name' => $Videos->catName,
-                    'video' => asset('videos/' . $Videos->slug_name . '/' . $Videos->videos),
+                    'video' => asset('images/statusvideos/' . $Videos->slug_name . '/' . $Videos->videos),
                     'is_new' => $Videos->is_new,
                 ]);
             }
@@ -117,7 +136,7 @@ class Main extends Model
         return $data;
     }
 
-    public function appbyimagecategoryData($req)
+    public function AppByImageCategoryData($req)
     {
         $ImagesData = DB::table('app_by_image_category')
             ->select('id', 'category_id', 'name', 'image')
@@ -140,7 +159,7 @@ class Main extends Model
         return $data;
     }
 
-    public function appbyvideocategoryData($req)
+    public function AppByVideoCategoryData($req)
     {
         $VideosData = DB::table('app_by_video_category')
             ->select('id', 'category_id', 'name', 'image')
@@ -156,7 +175,7 @@ class Main extends Model
                     'id' => $Videos->id,
                     'main_category_id' => $Videos->category_id,
                     'name' => $Videos->name,
-                    'image' => asset('videos/appbyvideocategory/'  . $Videos->image),
+                    'image' => asset('images/appbyvideocategory/'  . $Videos->image),
                 ]);
             }
         }

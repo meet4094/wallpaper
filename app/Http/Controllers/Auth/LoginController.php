@@ -54,7 +54,7 @@ class LoginController extends Controller
         ]);
         if ($validated) {
             if (Auth::attempt(['email' => $req->user_name, 'password' => $req->password])) {
-                return redirect('/category');
+                return redirect('/status_image_category');
             } else {
                 return back()->with('fail', 'Wrong credential');
             }

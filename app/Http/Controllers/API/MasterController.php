@@ -11,7 +11,7 @@ class MasterController extends Controller
 {
     protected $Main;
     protected $Validation;
-    
+
     public function __construct()
     {
         $this->Main = new Main();
@@ -33,11 +33,12 @@ class MasterController extends Controller
         }
     }
 
-    public function CategoryData(Request $req)
+    // Status Image Data
+    public function StatusImageCategoryData(Request $req)
     {
-        $validation_data = $this->Validation->CategoryData($req);
+        $validation_data = $this->Validation->StatusImageCategoryData($req);
         if ($validation_data->original['statuscode'] == 1) {
-            $data = $this->Main->CategoryData($req);
+            $data = $this->Main->StatusImageCategoryData($req);
             return response()->json([
                 "statuscode" => 1,
                 "msg" => "success!!.",
@@ -48,11 +49,12 @@ class MasterController extends Controller
         }
     }
 
-    public function ImagesData(Request $req)
+
+    public function StatusImagesData(Request $req)
     {
-        $validation_data = $this->Validation->ImagesData($req);
+        $validation_data = $this->Validation->StatusImagesData($req);
         if ($validation_data->original['statuscode'] == 1) {
-            $data = $this->Main->ImagesData($req);
+            $data = $this->Main->StatusImagesData($req);
             return response()->json([
                 "statuscode" => 1,
                 "msg" => "success!!.",
@@ -63,26 +65,12 @@ class MasterController extends Controller
         }
     }
 
-    public function VideosData(Request $req)
+    // Status Video Data
+    public function StatusVideoCategoryData(Request $req)
     {
-        $validation_data = $this->Validation->VideosData($req);
+        $validation_data = $this->Validation->StatusVideoCategoryData($req);
         if ($validation_data->original['statuscode'] == 1) {
-            $data = $this->Main->VideosData($req);
-            return response()->json([
-                "statuscode" => 1,
-                "msg" => "success!!.",
-                "data" => $data
-            ]);
-        } else {
-            return $validation_data;
-        }
-    }
-    
-    public function appbyimagecategoryData(Request $req)
-    {
-        $validation_data = $this->Validation->appbyimagecategoryData($req);
-        if ($validation_data->original['statuscode'] == 1) {
-            $data = $this->Main->appbyimagecategoryData($req);
+            $data = $this->Main->StatusVideoCategoryData($req);
             return response()->json([
                 "statuscode" => 1,
                 "msg" => "success!!.",
@@ -93,11 +81,41 @@ class MasterController extends Controller
         }
     }
 
-    public function appbyvideocategoryData(Request $req)
+    public function StatusVideosData(Request $req)
     {
-        $validation_data = $this->Validation->appbyvideocategoryData($req);
+        $validation_data = $this->Validation->StatusVideosData($req);
         if ($validation_data->original['statuscode'] == 1) {
-            $data = $this->Main->appbyvideocategoryData($req);
+            $data = $this->Main->StatusVideosData($req);
+            return response()->json([
+                "statuscode" => 1,
+                "msg" => "success!!.",
+                "data" => $data
+            ]);
+        } else {
+            return $validation_data;
+        }
+    }
+
+    public function AppByImageCategoryData(Request $req)
+    {
+        $validation_data = $this->Validation->AppByImageCategoryData($req);
+        if ($validation_data->original['statuscode'] == 1) {
+            $data = $this->Main->AppByImageCategoryData($req);
+            return response()->json([
+                "statuscode" => 1,
+                "msg" => "success!!.",
+                "data" => $data
+            ]);
+        } else {
+            return $validation_data;
+        }
+    }
+
+    public function AppByVideoCategoryData(Request $req)
+    {
+        $validation_data = $this->Validation->AppByVideoCategoryData($req);
+        if ($validation_data->original['statuscode'] == 1) {
+            $data = $this->Main->AppByVideoCategoryData($req);
             return response()->json([
                 "statuscode" => 1,
                 "msg" => "success!!.",
